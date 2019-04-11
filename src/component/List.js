@@ -7,16 +7,17 @@ class List extends Component {
     return (
       <div className="row">
         <div className="col-12 col-md-4">
-          <div className="todo-block">
+          <div className="todo-block ">
             <h2 className="py-3">Todo</h2>
-            {todoList.map((item) => {
+
+            {todoList.map((item, index) => {
               if (item.status === 'todo') {
                 return (
-                  <div className="card" key={item.id}>
-                    <div className="card-body">
+                  <div className="card-with-shadow mb-3" key={item.id}>
+                    <div className="card-body text-left">
                       <div className="row">
                         <div className="col-8">
-                          {item.text}
+                          {index+1}.{item.text}
                         </div>
                         <div className="col-4 text-right">
                           <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button">
@@ -39,14 +40,14 @@ class List extends Component {
         <div className="col-12 col-md-4">
           <div className="todo-block">
             <h2 className="py-3">Doing</h2>
-            {todoList.map((item) => {
+            {todoList.map((item, index) => {
               if (item.status === 'doing') {
                 return (
-                  <div className="card" key={item.id}>
-                    <div className="card-body">
+                  <div className="card-with-shadow mb-3" key={item.id}>
+                    <div className="card-body text-left">
                       <div className="row">
                         <div className="col-8">
-                          {item.text}
+                          {index+1}. {item.text}
                         </div>
                         <div className="col-4 text-right">
                           <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button">
@@ -71,8 +72,8 @@ class List extends Component {
             {todoList.map((item) => {
               if (item.status === 'done') {
                 return (
-                  <div className="card" key={item.id}>
-                    <div className="card-body">
+                  <div className="card-with-shadow mb-3" key={item.id}>
+                    <div className="card-body text-left">
                       <div className="row">
                         <div className="col-8">
                           {item.text}
