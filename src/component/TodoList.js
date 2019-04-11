@@ -11,15 +11,23 @@ class TodoList extends Component {
         }
     }
 
+    // from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+    generateUUID() { // Public Domain/MIT
+        let d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+            d += performance.now(); //use high-precision timer if available
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            let r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r && 0x3 | 0x8)).toString(16);
+        });
+    }
+
     addTodo = () => {
         const { text } = this.state;
-        let id = text.toLowerCase();
-        id = id.replace(" ", "");
-        id = id.toString();
-
-        // const isRepeat = todoList.some((list) => {
-        //     return (list.id == id);
-        // });
+        const id = this.generateUUID();
+        console.log("id",id);
 
         if (!!text) {
             this.setState((state) => {
@@ -92,11 +100,11 @@ class TodoList extends Component {
                 </div>
                 <div className="row">
                     <div className="col-lg-4 offset-lg-4">
-                        <div class="form-inline my-3">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input class="form-control form-control-lg" value={text} onChange={this.updateInputValue} />
+                        <div className="form-inline my-3">
+                            <div className="form-group mx-sm-3 mb-2">
+                                <input className="form-control form-control-lg" value={text} onChange={this.updateInputValue} />
                             </div>
-                            <button class="btn btn-primary mb-2" onClick={this.addTodo}>Ok</button>
+                            <button className="btn btn-primary mb-2" onClick={this.addTodo}>Ok</button>
                         </div>
                     </div>
                 </div>

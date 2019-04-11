@@ -25,6 +25,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "babel-plugin-import": "^1.11.0",
     "customize-cra": "^0.2.12",
     "node-sass": "^4.11.0",

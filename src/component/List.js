@@ -12,19 +12,19 @@ class List extends Component {
             {todoList.map((item) => {
               if (item.status === 'todo') {
                 return (
-                  <div class="card" key={item.id}>
+                  <div className="card" key={item.id}>
                     <div className="card-body">
                       <div className="row">
                         <div className="col-8">
                           {item.text}
                         </div>
-                        <div className="col-4">
-                          <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button"> 
-                            <i class="fas fa-check"></i> 
+                        <div className="col-4 text-right">
+                          <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button">
+                            <i className="fas fa-check"></i>
                           </button>
-                       
+
                           <button className="btn btn-secondary btn-sm" onClick={() => { removeList(item.id) }} type="button">
-                            <i class="fas fa-times"></i>
+                            <i className="fas fa-times"></i>
                           </button>
                         </div>
                       </div>
@@ -34,36 +34,65 @@ class List extends Component {
               }
               return;
             })}
-
           </div>
         </div>
         <div className="col-12 col-md-4">
-          <h2>Doing</h2>
-          {todoList.map((item) => {
-            if (item.status === 'doing') {
-              return (
-                <div key={item.id}>
-                  {item.text}
-                  <button onClick={() => { gotoNextStatus(item.id) }}>Done</button>
-                  <button onClick={() => { removeList(item.id) }}>remove</button>
-                </div>
-              )
-            }
-          })}
+          <div className="todo-block">
+            <h2 className="py-3">Doing</h2>
+            {todoList.map((item) => {
+              if (item.status === 'doing') {
+                return (
+                  <div className="card" key={item.id}>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-8">
+                          {item.text}
+                        </div>
+                        <div className="col-4 text-right">
+                          <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button">
+                            <i className="fas fa-check"></i>
+                          </button>
+
+                          <button className="btn btn-secondary btn-sm" onClick={() => { removeList(item.id) }} type="button">
+                            <i className="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+            })}
+          </div>
         </div>
         <div className="col-12 col-md-4">
-          <h2>Done</h2>
-          {todoList.map((item) => {
-            if (item.status === 'done') {
-              return (
-                <div key={item.id}>
-                  {item.text}
-                  {/* <button onClick={this.nextStatus(item.id)}></button> */}
-                  <button onClick={() => { removeList(item.id) }}>remove</button>
-                </div>
-              )
-            }
-          })}
+          <div className="todo-block">
+            <h2 className="py-3">Done</h2>
+            {todoList.map((item) => {
+              if (item.status === 'done') {
+                return (
+                  <div className="card" key={item.id}>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-8">
+                          {item.text}
+                        </div>
+                        <div className="col-4 text-right">
+                          {/* <button className="btn btn-success mr-2 btn-sm" onClick={() => { gotoNextStatus(item.id) }} type="button">
+                          <i className="fas fa-check"></i>
+                        </button> */}
+                          <button className="btn btn-secondary btn-sm" onClick={() => { removeList(item.id) }} type="button">
+                            <i className="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+              return;
+            })}
+          </div>
         </div>
       </div>
     );
