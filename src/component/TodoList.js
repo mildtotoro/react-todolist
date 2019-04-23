@@ -31,7 +31,6 @@ class TodoList extends Component {
         event.preventDefault();
         const { text } = this.state;
         const id = this.generateUUID();
-        console.log("id", id);
 
         if (!!text) {
             this.setState((state) => {
@@ -52,7 +51,6 @@ class TodoList extends Component {
     }
 
     updateInputValue = (e) => {
-        console.log(e.target.value);
         this.setState({
             text: e.target.value
         });
