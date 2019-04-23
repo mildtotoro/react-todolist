@@ -8,6 +8,8 @@ class TodoList extends Component {
 
         this.state = {
             todoList: [],
+            doingList: [],
+            doneList: [],
             text: "",
         }
     }
@@ -25,7 +27,8 @@ class TodoList extends Component {
         });
     }
 
-    addTodo = () => {
+    addTodo = (event) => {
+        event.preventDefault();
         const { text } = this.state;
         const id = this.generateUUID();
         console.log("id", id);
@@ -67,61 +70,99 @@ class TodoList extends Component {
         });
     }
 
-    gotoNextStatus = (id) => {
+    removeItemFromList = (item) => {
         this.setState((state) => {
-            const newList = state.todoList.map((item) => {
-                if (item.id === id) {
-                    if (item.status === 'todo') {
-                        return {
-                            ...item,
-                            status: 'doing',
-                        }
-                    } else {
-                        return {
-                            ...item,
-                            status: 'done',
-                        }
-                    }
+            let list = state.todoList;
+            let listName = 'todoList';
+            if(item.status === 'done') {
+                list = state.doneList;
+                listName = 'doneList';
+            } else if(item.status === 'doing') {
+                list = state.doingList;
+                listName = 'doingList';
+            } 
+            let newList = list;
+             newList = list.filter((itemList) => {
+                if(itemList.id !== item.id) {
+                    return itemList;
                 }
-                return item;
+                
             });
-
             return {
-                todoList: newList,
+                [listName] : newList,
             }
         });
     }
 
+    addDoing = (itemDoing) => {
+        this.removeItemFromList(itemDoing);
+        this.setState((state) => {
+            const newDoingList = [
+                ...state.doingList,
+                {
+                    ...itemDoing,
+                    status: 'doing'
+                }
+            ]
+            
+            return {
+                doingList: newDoingList,  
+            }
+        });
+    }
+
+    addDone = (itemDone) => {
+        this.removeItemFromList(itemDone);
+
+        this.setState((state) => {
+            const newDoneList = [
+                ...state.doneList,
+                {
+                    ...itemDone,
+                    status: 'done'
+                }
+            ]
+            
+            return {
+                doneList: newDoneList,
+            }
+        });
+    }
 
     render() {
-        const { todoList, text } = this.state;
+        const { todoList, doingList, doneList, text } = this.state;
+
         return (
             <div className="container">
                 <div className="mt-5 my-3">
                     <h1 className="bold">TODOLIST</h1>
                 </div>
+
                 <div className="row">
                     <div className="col-12">
                         <div className="card-with-shadow">
                             <div className="row  py-2 my-4">
                                 <div className="col-lg-4 offset-lg-4">
-                                    <div className="form-inline my-3">
+                                    <form className="form-inline" onSubmit={this.addTodo}>
                                         <div className="form-group mx-sm-2 mb-2">
-                                            <input className="form-control form-control-lg" value={text} onChange={this.updateInputValue} />
+                                            <input className="form-control form-control-lg" value={text} onChange={this.updateInputValue} name="todolist" placeholder="I will ..."/>
                                         </div>
-                                        <button className="btn btn-primary btn-lg mb-2" onClick={this.addTodo}>Add</button>
-                                    </div>
+                                        <button type="submit" className="btn btn-primary btn-lg mb-2">Add</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
                 <List
                     status="todo"
                     todoList={todoList}
-                    gotoNextStatus={this.gotoNextStatus}
-                    removeList={this.removeList}
+                    doingList={doingList}
+                    doneList={doneList}
+                    addDoing={this.addDoing}
+                    addDone={this.addDone}
+                    removeItemFromList={this.removeItemFromList}
                 />
             </div>
         )
