@@ -27,7 +27,7 @@ class TodoList extends Component {
         });
     }
 
-    addTodo = (event) => {
+    createTodo = (event) => {
         event.preventDefault();
         const { text } = this.state;
         const id = this.generateUUID();
@@ -49,18 +49,6 @@ class TodoList extends Component {
                 }
             });
         }
-    }
-
-    removeList = (id) => {
-        this.setState((state) => {
-            const newList = state.todoList.filter((item) => {
-                return item.id !== id;
-            });
-
-            return {
-                todoList: newList,
-            }
-        });
     }
 
     updateInputValue = (e) => {
@@ -90,6 +78,23 @@ class TodoList extends Component {
             });
             return {
                 [listName] : newList,
+            }
+        });
+    }
+
+    addTodo = (itemDo) => {
+        this.removeItemFromList(itemDo);
+        this.setState((state) => {
+            const newTodoList = [
+                ...state.todoList,
+                {
+                    ...itemDo,
+                    status: 'todo'
+                }
+            ]
+            
+            return {
+                todoList: newTodoList,  
             }
         });
     }
@@ -143,7 +148,7 @@ class TodoList extends Component {
                         <div className="card-with-shadow">
                             <div className="row  py-2 my-4">
                                 <div className="col-lg-4 offset-lg-4">
-                                    <form className="form-inline" onSubmit={this.addTodo}>
+                                    <form className="form-inline" onSubmit={this.createTodo}>
                                         <div className="form-group mx-sm-2 mb-2">
                                             <input className="form-control form-control-lg" value={text} onChange={this.updateInputValue} name="todolist" placeholder="I will ..."/>
                                         </div>
@@ -160,6 +165,7 @@ class TodoList extends Component {
                     todoList={todoList}
                     doingList={doingList}
                     doneList={doneList}
+                    addTodo={this.addTodo}
                     addDoing={this.addDoing}
                     addDone={this.addDone}
                     removeItemFromList={this.removeItemFromList}
