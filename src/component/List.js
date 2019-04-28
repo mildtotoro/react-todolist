@@ -19,7 +19,7 @@ class List extends Component {
                         {item.text}
                       </div>
                       <div className="col-4 text-right">
-                      
+
                         <button className="btn btn-success mr-2 btn-sm" onClick={() => { addDoing(item); }} type="button">
                           <i className="fas fa-check"></i>
                         </button>
@@ -50,7 +50,7 @@ class List extends Component {
                         <button className="btn btn-success mr-2 btn-sm" onClick={() => { addDone(item) }} type="button">
                           <i className="fas fa-check"></i>
                         </button>
-                        <button className="btn btn-success mr-2 btn-sm" onClick={() => { addTodo(item) }} type="button">
+                        <button className="btn btn-secondary mr-2 btn-sm" onClick={() => { addTodo(item) }} type="button">
                           <i className="fas fa-undo"></i>
                         </button>
                         <button className="btn btn-secondary btn-sm" onClick={() => { removeItemFromList(item) }} type="button">
@@ -76,7 +76,7 @@ class List extends Component {
                         {item.text}
                       </div>
                       <div className="col-4 text-right">
-                        <button className="btn btn-success mr-2 btn-sm" onClick={() => { addDoing(item) }} type="button">
+                        <button className="btn btn-secondary mr-2 btn-sm" onClick={() => { addDoing(item) }} type="button">
                           <i className="fas fa-undo"></i>
                         </button>
                         <button className="btn btn-secondary btn-sm" onClick={() => { removeItemFromList(item) }} type="button">
